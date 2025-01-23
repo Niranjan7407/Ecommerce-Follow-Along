@@ -90,12 +90,16 @@ This milestone uses the following:
 1. **React**: For building reusable UI components.
 2. **Tailwind CSS**: For responsive and utility-first styling.
 3. **SVG Icons**: Used to toggle password visibility.
-
+4. **Mongoose**: Used to connect to DB
+5. **Dotenv**: Used to access environment variables.
 ---
+## Milestone 3
 
-## Next Steps
-In the next milestone, we will:
-- Implement backend integration for user authentication.
-- Add real-time form validation with error messages.
-- Enhance user experience with animations and micro-interactions.
+## Created Backend Server with a Database connection with MongoDB using Mongoose while using Dotenv to Access Environment Variables.
+
+## db.js
+Connects to the MongoDB
+
+## Error.js && ErrorHandler.js
+Used to Handle Errors
 
