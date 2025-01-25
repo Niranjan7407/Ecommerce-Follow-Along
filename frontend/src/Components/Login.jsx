@@ -2,6 +2,7 @@ import { useState } from "react";
 
 export default function Example() {
   const [showPassword, setShowPassword] = useState(false);
+  
 
   return (
     <>
@@ -24,7 +25,7 @@ export default function Example() {
             <div>
               <label
                 htmlFor="email"
-                className="block text-sm font-medium leading-6 text-white"
+                className="block text-sm font-medium leading-6 text-white left"
               >
                 Email address
               </label>
@@ -42,7 +43,7 @@ export default function Example() {
             <div>
               <label
                 htmlFor="password"
-                className="block text-sm font-medium leading-6 text-white"
+                className="block text-sm font-medium leading-6 text-white left"
               >
                 Password
               </label>
@@ -150,7 +151,7 @@ export default function Example() {
               <p>
                 Don’t have an account?{' '}
                 <a
-                  href="#"
+                  href="/sign-up"
                   className="font-semibold text-indigo-600 hover:text-indigo-500"
                 >
                   Sign up
