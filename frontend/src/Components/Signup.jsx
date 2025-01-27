@@ -1,5 +1,5 @@
 import { useState } from "react";
-import RxAvatar from 'react-avatar';
+import {MdAccountCircle} from 'react-icons/md';
 import axios from 'axios';
 
 export default function Example() {
@@ -15,7 +15,7 @@ export default function Example() {
     if (file){
         const filePath= URL.createObjectURL(file);
         console.log(filePath);
-        setAvatar(filePath);
+        setAvatar(file);
     }
 
 }
@@ -172,7 +172,7 @@ className="size-8 absolute inset-y-0 right-0 flex items-center pr-3 text-white h
               </label>
               <div className="mt-2 relative">
                 <input
-                  id="password"
+                  id="password2"
                   name="password"
                   type={showPassword ? "text" : "password"}
                   required
@@ -211,7 +211,7 @@ className="size-8 absolute inset-y-0 right-0 flex items-center pr-3 text-white h
                         avatar ? (
                             <img src={URL.createObjectURL(avatar)} alt="avatar" className="h-full w-full object-cover rounded-full" />)
                             : (
-                                <RxAvatar className="h-8 w-8" />
+                                <MdAccountCircle className="h-8 w-8" />
                             )
                     }
                 </span>
@@ -225,13 +225,14 @@ className="size-8 absolute inset-y-0 right-0 flex items-center pr-3 text-white h
                 name='avatar'
                 id='file-input'
                 accept='.jpg,.jpeg,.png'
-                onChange={handleFileSubmit}
+                onChange={(e) => setAvatar(e.target.files[0])}
                 className="sr-only" />
             </div>
 
             <div>
               <button
                 type="submit"
+                onClick={handleSubmit}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign up

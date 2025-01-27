@@ -1,6 +1,7 @@
 const express=require('express');
 const app=express();
 const connectDB=require('./src/Database/db');
+const userRouter=require('./src/Controllers/user');
 
 require('dotenv').config({
     path:'./src/Config/.env'
@@ -19,3 +20,5 @@ app.listen(3000,async ()=>{
 })
 
 
+
+ app.use('/register',userRouter)
