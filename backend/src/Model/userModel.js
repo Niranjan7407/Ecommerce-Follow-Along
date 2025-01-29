@@ -1,4 +1,4 @@
-const {model} = require('mongoose');
+
 const mongoose = require('mongoose'); 
 
 const userSchema = new mongoose.Schema({
@@ -13,8 +13,8 @@ const userSchema = new mongoose.Schema({
       password:{
         type: String,
         required: [true, "Please enter your password"],
-        minLength: [4, "Password should be greater than 4 characters"],
-        select: false,
+        minLength: [4, "Password should be greater than 4 characters"]
+        
       },
       phoneNumber:{
         type: Number,
@@ -64,6 +64,6 @@ const userSchema = new mongoose.Schema({
 
 });
 
-const userModel= model('User',userSchema);
+const userModel= mongoose.model('User',userSchema);
 
-model.exports=userModel;
+module.exports = userModel;
