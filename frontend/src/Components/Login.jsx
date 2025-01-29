@@ -1,7 +1,12 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
+import bgg from './../assets/bg_regis.jpg'
+
 
 export default function Example() {
   const [showPassword, setShowPassword] = useState(false);
+  useEffect(()=>{
+    document.body.style.backgroundImage=`url(${bgg})`
+  })
   
 
   return (

@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState,useEffect } from "react";
 import {MdAccountCircle} from 'react-icons/md';
+import bgg from './../assets/bg_regis.jpg'
 import axios from 'axios';
 
 export default function Example() {
@@ -8,6 +9,10 @@ export default function Example() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState(null);
+
+  useEffect(()=>{
+      document.body.style.backgroundImage=`url(${bgg})`
+    })
 
   const handleFileSubmit = (e) => {
     const file = e.target.files[0];
@@ -39,6 +44,7 @@ export default function Example() {
 
   return (
     <>
+    
     
       <div className="flex min-h-full flex-1 flex-col justify-center px-6 py-12 lg:px-8">
         <div className="sm:mx-auto sm:w-full sm:max-w-sm">
