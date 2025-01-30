@@ -19,7 +19,7 @@ export default function ProductCard({product}) {
                 </h4>
             </div>
             <div>
-                <h2>
+                <h2 className='text-black'>
                     ${product.price}
                 </h2>
                 <button>Buy Now</button>
