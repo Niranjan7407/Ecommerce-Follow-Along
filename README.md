@@ -87,3 +87,5 @@ In this milestone we created two components called Home.jsx and productcard.jsx.
 In this milestone we created a page for the merchants/dealers to add their product information which will be stored in the database. 
 We have also routed the page to /product endpoint.
 
+### **Milestone 10**
+In this milestone, we created a mongoose schema for products and an endpoint (/product) to store the product details.
