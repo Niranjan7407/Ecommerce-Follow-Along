@@ -83,7 +83,7 @@ export default function Homepage() {
             }
             return res.json()
         }).then((data)=>{
-            setProductDetails(data.Products);
+            setProductDetails(data.products);
             setLoading(false);
             
         }).catch((err)=>{

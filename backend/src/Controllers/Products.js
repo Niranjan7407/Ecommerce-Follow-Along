@@ -1,14 +1,23 @@
 const {Router} = require('express')
-const {productModel} = require('./../Model/productModel')
+const productModel = require('./../Model/productModel')
 const {productUpload} = require('./../../multer')
 
 const productRouter=Router();
 
-productRouter.get('/',(req,res)=>{
-    res.send('Product router')
+productRouter.get('/get-products',async (req,res)=>{
+    try{
+        const products = await productModel.find({})
+        if (!products){
+            return res.status(400).json({message:"No products foud"})
+        }
+        console.log(products)
+        return res.status(200).json({products:products})
+    }catch(err){
+        console.log(err)
+    }
 })
 
-productRouter.post('/',productUpload.array('files'),async (req,res)=>{
+productRouter.post('/post-product',productUpload.array('files'),async (req,res)=>{
     const {name,email,description,category,stock,tags,price} = req.body;
     const images=req.files.map(file=>file.path);
     try{
