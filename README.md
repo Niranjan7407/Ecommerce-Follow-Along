@@ -55,7 +55,7 @@ In the **`index.js`** file, we imported Express, initialized the app, and set up
 creating user model, user controller and Multer support
 
 ### **Milestone 5**
-created a signup page.
+Created a signup containing a form using React ( with useState , useEffect , etc.)
 
 ### **Milestone 6**
 Backend Structure and Initial Setup
