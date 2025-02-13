@@ -89,3 +89,6 @@ We have also routed the page to /product endpoint.
 
 ### **Milestone 10**
 In this milestone, we created a mongoose schema for products and an endpoint (/product) to store the product details.
+
+### **Milestone 11**
+In this milestone, We made our homepage dynamic by making the product images carousel and wrote an endpoint that will send data from extract and send data from mongodb.
