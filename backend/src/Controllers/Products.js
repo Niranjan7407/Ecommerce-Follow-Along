@@ -79,6 +79,6 @@ productRouter.put('/edit-product/:id',productUpload.array("files",10),async (req
         console.log(err)
     }
 
-})
+}) 
 
 module.exports=productRouter;

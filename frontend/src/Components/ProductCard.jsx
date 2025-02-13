@@ -46,7 +46,7 @@ export default function ProductCard({product}) {
     )
 }
 
-ProductCard.propTypes = {
+ProductCard.propTypes = { 
     product: PropTypes.shape({
         name: PropTypes.string.isRequired,
         price: PropTypes.number.isRequired,

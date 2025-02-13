@@ -28,7 +28,7 @@ export default function ProductCard({product}) {
                 console.log(prev + 1);
                 return (prev + 1)%(product.image.length-1) ;
             });
-        }, 2000);
+        }, 2000); 
     
         return () => clearInterval(interval); // Cleanup when unmounting
     }, [imgIndex]);
