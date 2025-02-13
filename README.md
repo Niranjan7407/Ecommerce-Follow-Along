@@ -92,3 +92,9 @@ In this milestone, we created a mongoose schema for products and an endpoint (/p
 
 ### **Milestone 11**
 In this milestone, We made our homepage dynamic by making the product images carousel and wrote an endpoint that will send data from extract and send data from mongodb.
+
+### **Milestone 12**
+In this milestone, We linked the frontend and backend by linking the add products page send data to the database. The database recieves the products info and updates the homepage with newly added products.
+
+### **Milestone 13**
+In this milestone, We made an endpoint to update the product details using an PUT request and taking the id of the product as a request parameter.

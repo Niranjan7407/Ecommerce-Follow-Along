@@ -1,6 +1,7 @@
 const {Router} = require('express')
 const productModel = require('./../Model/productModel')
 const {productUpload} = require('./../../multer')
+const path = require('path');
 
 const productRouter=Router();
 
@@ -40,6 +41,40 @@ productRouter.post('/post-product',productUpload.array('files'),async (req,res)=
         })
 
         res.status(200).json({message:"Product created successfully",product:newProduct})
+    }catch(err){
+        console.log(err)
+    }
+
+})
+
+productRouter.put('/edit-product/:id',productUpload.array("files",10),async (req,res)=>{
+    try{
+    const {id}=req.params;
+    const exis=await productModel.findById(id);
+    
+    if (!exis){
+        res.status(400).json({message:"Product not found."})
+    }
+    const updateImages=exis.images;
+    if (req.files && req.files.length>0){
+        updateImages=req.files.map((img)=>{
+            return `/product/${path.basename(img)}`
+        })
+    }
+    const {name, description, category, tags, price, stock, email} = req.body;
+    
+    exis.name=name;
+    exis.description=description;
+    exis.category=category;
+    exis.tags=tags;
+    exis.price=price;
+    exis.stock=stock;
+    exis.email=email;
+    exis.images=updateImages;
+
+    await exis.save();
+
+    res.status(200).json({message:"Product Updated",product:exis})
     }catch(err){
         console.log(err)
     }

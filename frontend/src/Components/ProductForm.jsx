@@ -43,7 +43,7 @@ export const Productform = () => {
         console.log(formData);
         alert('Product added successfully');
 
-        const res = await axios.post('http://localhost:5173/productForm', formData);
+        const res = await axios.post('http://localhost:3000/product/post-product', formData);
 
         if (res.status === 200) {
             setName('');
