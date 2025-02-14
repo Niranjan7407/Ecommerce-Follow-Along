@@ -81,4 +81,20 @@ productRouter.put('/edit-product/:id',productUpload.array("files",10),async (req
 
 }) 
 
+productrouter.delete('/delete-product/:id',async(req,res)=>{
+    try{
+        const {id}=req.params
+        const existproduct=await productModel.findById(id)
+
+        if(!existproduct){
+            res.status(400).json({message:"product does not exist"})
+        }
+
+        await existproduct.deleteOne()
+
+    }catch(err){
+        console.log('error in delete')
+    }
+})
+
 module.exports=productRouter;

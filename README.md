@@ -98,3 +98,6 @@ In this milestone, We linked the frontend and backend by linking the add product
 
 ### **Milestone 13**
 In this milestone, We made an endpoint to update the product details using an PUT request and taking the id of the product as a request parameter.
+
+## **Milestone 14**
+In this milestone, We made an endpoint to delete the product with its specified Mongo DB ID and made a frontend page. So that, Only the sellers can handle the delete operation.

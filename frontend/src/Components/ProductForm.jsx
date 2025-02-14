@@ -1,8 +1,11 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect,useNavigate } from 'react';
 import axios from 'axios';
 import bgg from './../assets/bg_regis.jpg'
 
 export const Productform = () => {
+    const { id } = useParams();
+    const navigate=useNavigate()
+    const isEdit = Boolean(id);
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
@@ -17,6 +20,31 @@ export const Productform = () => {
     useEffect(()=>{
         document.getElementsByTagName('body')[0].style.backgroundImage=`url(${bgg})`
     })
+
+    useEffect(() => {
+        if (isEdit) {
+            axios
+                .get(`http://localhost:8000/api/v2/product/product/${id}`)
+                .then((response) => {
+                    const p = response.data.product;
+                    setName(p.name);
+                    setDescription(p.description);
+                    setCategory(p.category);
+                    setTag(p.tags || "");
+                    setPrice(p.price);
+                    setStock(p.stock);
+                    setEmail(p.email);
+                    if (p.images && p.images.length > 0) {
+                        setPreview(
+                            p.images.map((imgPath) => `http://localhost:3000${imgPath}`)
+                        );
+                    }
+                })
+                .catch((err) => {
+                    console.error("Error fetching product:", err);
+                });
+        }
+    }, [id, isEdit]);
 
     const handleImage = (e) => {
         const files = Array.from(e.target.files);
@@ -57,6 +85,38 @@ export const Productform = () => {
             setPreview([]);
         }
     };
+
+    try {
+        if (isEdit) {
+          const response = await axios.put(
+              `http://localhost:8000/api/v2/product/update-product/${id}`,
+              formData,
+              {
+                  headers: { "Content-Type": "multipart/form-data" },
+              }
+          );
+          if (response.status === 200) {
+              alert("Product updated successfully!");
+              navigate("/my-products");
+          }
+      }
+       else {
+          const res = await axios.post("http://localhost:3000/product/post-product", formData, {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+    
+        });
+        if (res.status === 200) {
+            alert("Product Added Successfully");
+            setImage([]);
+            setPreview([]);
+          }
+        } 
+    } catch (error) {
+        console.error("Error adding product:", error);
+        alert("Failed to add product");
+      }
 
     return (
         <div className='flex justify-center items-center h-screen text-black'>
