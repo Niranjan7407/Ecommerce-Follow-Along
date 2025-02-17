@@ -101,3 +101,6 @@ In this milestone, We made an endpoint to update the product details using an PU
 
 ## **Milestone 14**
 In this milestone, We made an endpoint to delete the product with its specified Mongo DB ID and made a frontend page. So that, Only the sellers can handle the delete operation.
+
+## **Milestone 15**
+In this milestone, We made a navbar component and added it to the Homepage to increase the interactivity of the page.
