@@ -110,3 +110,6 @@ Created singleproduct.jsx. The pages is made to show details about the product. 
 
 ## **Milestone 17**
 Created an endpoint where we recieve post request from the user and add the product in their cart and we have also updated the schema to do the same.
+
+## **Milestone 18**
+Created an endpoint where we send the product details in a user's cart when requested with a get request.
