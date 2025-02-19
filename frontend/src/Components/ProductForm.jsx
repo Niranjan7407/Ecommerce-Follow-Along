@@ -1,4 +1,5 @@
-import React, { useState, useEffect,useNavigate } from 'react';
+import React, { useState, useEffect, } from 'react';
+import {useNavigate,useParams} from 'react-router-dom';
 import axios from 'axios';
 import bgg from './../assets/bg_regis.jpg'
 
@@ -88,7 +89,7 @@ export const Productform = () => {
 
     try {
         if (isEdit) {
-          const response = await axios.put(
+          const response = axios.put(
               `http://localhost:8000/api/v2/product/update-product/${id}`,
               formData,
               {
@@ -101,7 +102,7 @@ export const Productform = () => {
           }
       }
        else {
-          const res = await axios.post("http://localhost:3000/product/post-product", formData, {
+          const res = axios.post("http://localhost:3000/product/post-product", formData, {
           headers: {
             "Content-Type": "multipart/form-data",
           },

@@ -50,10 +50,11 @@ export const ProductCardForSeller = ({image,name,price,description}) => {
 }
 
 ProductCardForSeller.propTypes = { 
-    product: PropTypes.shape({
-        name: PropTypes.string.isRequired,
-        price: PropTypes.number.isRequired,
-        description: PropTypes.string.isRequired,
-        image: PropTypes.array.isRequired,
-    }).isRequired,
+  
+        name: PropTypes.string,
+        price: PropTypes.number,
+        description: PropTypes.string,
+        image: PropTypes.array,
+        id: PropTypes.string,
+   
 };

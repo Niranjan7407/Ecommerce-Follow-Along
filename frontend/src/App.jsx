@@ -2,7 +2,7 @@
 import {Routes, Route,Link} from 'react-router-dom'
 import Login from './Components/Login'
 import Signup from './Components/Signup'
-import Home from './Components/Homepage'
+import Home from './Pages/Homepage'
 import { Productform } from './Components/ProductForm'
 import { ProductCardForSeller } from './Components/ProductCardForSeller'
 import './App.css'
@@ -16,7 +16,7 @@ function App() {
       <Route path='/login' element={<Login />} />
       <Route path='/sign-up' element={<Signup/>} />
       <Route path='/' element={<Home />} />
-      <Route path='/product' element={<Productform />}></Route>
+      <Route path='/create-product' element={<Productform />}></Route>
       <Route path='/my-product' element={<ProductCardForSeller/>}/>
     </Routes>
     {/* <Link to='/login'><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Login</button></Link>

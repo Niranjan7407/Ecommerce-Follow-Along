@@ -107,3 +107,6 @@ In this milestone, We made a navbar component and added it to the Homepage to in
 
 ## **Milestone 16**
 Created singleproduct.jsx. The pages is made to show details about the product. I also routed it and made other minor changes.
+
+## **Milestone 17**
+Created an endpoint where we recieve post request from the user and add the product in their cart and we have also updated the schema to do the same.
