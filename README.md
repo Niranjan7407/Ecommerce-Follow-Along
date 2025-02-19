@@ -104,3 +104,6 @@ In this milestone, We made an endpoint to delete the product with its specified 
 
 ## **Milestone 15**
 In this milestone, We made a navbar component and added it to the Homepage to increase the interactivity of the page.
+
+## **Milestone 16**
+Created singleproduct.jsx. The pages is made to show details about the product. I also routed it and made other minor changes.
