@@ -2,7 +2,7 @@
 import {Routes, Route,Link} from 'react-router-dom'
 import Login from './Components/Login'
 import Signup from './Components/Signup'
-import Home from './Components/Homepage'
+import Home from './Pages/Homepage'
 import { Productform } from './Components/ProductForm'
 import { ProductCardForSeller } from './Components/ProductCardForSeller'
 import './App.css'

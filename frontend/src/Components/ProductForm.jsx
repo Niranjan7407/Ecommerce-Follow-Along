@@ -84,7 +84,7 @@ export const Productform = () => {
             setImage([]);
             setPreview([]);
         }
-    };
+    
 
     try {
         if (isEdit) {
@@ -116,7 +116,7 @@ export const Productform = () => {
     } catch (error) {
         console.error("Error adding product:", error);
         alert("Failed to add product");
-      }
+      }};
 
     return (
         <div className='flex justify-center items-center h-screen text-black'>

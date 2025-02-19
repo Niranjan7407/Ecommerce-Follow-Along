@@ -81,7 +81,7 @@ productRouter.put('/edit-product/:id',productUpload.array("files",10),async (req
 
 }) 
 
-productrouter.delete('/delete-product/:id',async(req,res)=>{
+productRouter.delete('/delete-product/:id',async(req,res)=>{
     try{
         const {id}=req.params
         const existproduct=await productModel.findById(id)
