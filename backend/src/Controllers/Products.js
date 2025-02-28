@@ -18,6 +18,32 @@ productRouter.get('/get-products',async (req,res)=>{
     }
 })
 
+productRouter.put('edit-cart',async (req,res)=>{
+    try{
+        const {email,productId,quantity}=req.body;
+        
+        if (!email || !productId || quantity===undefined){
+            return res.status(400).json({message:"Please provide all fields"})
+        }
+        const findUser = await userModel.findOne({email:email})
+        if (!findUser){
+            return res.status(400).json({message:"User not found"})
+        }
+        const findProduct = await productModel.findById(productId)
+        if (!findProduct&&findProduct.stock<quantity){
+            return res.status(400).json({message:"Product not found or out of stock"})
+        }
+
+        const findCartProduct=findUser.cart.filter((item)=>item.productId.toString()===productId.toString())
+        if (findCartProduct){
+            findCartProduct.quantity=quantity
+        }
+        return res.status(200).json({message:"Cart updated successfully"})
+    }catch(err){
+        console.log(err)
+    }
+})
+
 productRouter.post('/post-product',productUpload.array('files'),async (req,res)=>{
     const {name,email,description,category,stock,tags,price} = req.body;
     const images=req.files.map(file=>file.path);

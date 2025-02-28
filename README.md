@@ -113,3 +113,6 @@ Created an endpoint where we recieve post request from the user and add the prod
 
 ## **Milestone 18**
 Created an endpoint where we send the product details in a user's cart when requested with a get request.
+
+## **Milestone 19**
+Created cart frontend page to display the products, added an option to increase and decrease cart product quantity using + and - buttons and created an Backend endpoint for increase and decrease quantity.

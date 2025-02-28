@@ -1,5 +1,6 @@
 import React, { useState, useEffect, } from 'react';
 import {useNavigate,useParams} from 'react-router-dom';
+import NavBar from '../Components/navbar';
 import axios from 'axios';
 import bgg from './../assets/bg_regis.jpg'
 
@@ -24,6 +25,7 @@ export const Productform = () => {
 
     useEffect(() => {
         if (isEdit) {
+
             axios
                 .get(`http://localhost:8000/api/v2/product/product/${id}`)
                 .then((response) => {
@@ -120,6 +122,8 @@ export const Productform = () => {
       }
 
     return (
+        <>
+        <NavBar /> 
         <div className='flex justify-center items-center h-screen text-black'>
             <div className='form-container bg-white p-4 rounded-lg shadow-lg w-96 display flex justify-center items-center flex-col'>
             <form onSubmit={handleSubmit}>
@@ -231,5 +235,6 @@ export const Productform = () => {
             </form>
         </div>
         </div>
+        </>
     );
 };

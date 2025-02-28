@@ -3,7 +3,9 @@ import {Routes, Route,Link} from 'react-router-dom'
 import Login from './Components/Login'
 import Signup from './Components/Signup'
 import Home from './Pages/Homepage'
-import { Productform } from './Components/ProductForm'
+import Cart from './Pages/CArt'
+import MyProducts from './Pages/MyProducts'
+import { Productform } from './Pages/ProductForm'
 import { ProductCardForSeller } from './Components/ProductCardForSeller'
 import './App.css'
 
@@ -16,6 +18,8 @@ function App() {
       <Route path='/login' element={<Login />} />
       <Route path='/sign-up' element={<Signup/>} />
       <Route path='/' element={<Home />} />
+      <Route path='/cart' element={<Cart />} />
+      <Route path='/my-products' element={<MyProducts />}></Route>
       <Route path='/create-product' element={<Productform />}></Route>
       <Route path='/my-product' element={<ProductCardForSeller/>}/>
     </Routes>
