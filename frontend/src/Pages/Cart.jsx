@@ -6,7 +6,7 @@ const Cart = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch(``)
+        fetch(`http://localhost:3000/getcart`)
             .then((res) => {
                 if (!res.ok) {
                     console.log("error in cart page");

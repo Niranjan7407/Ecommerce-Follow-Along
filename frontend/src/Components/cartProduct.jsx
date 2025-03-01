@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { IoIosAdd,IoIosAddCircleOutline } from "react-icons/io";
-import { IoIosRemove,MdOutlineRemoveCircleOutline } from "react-icons/io";
+import { IoIosAddCircleOutline } from "react-icons/io";
+import {MdOutlineRemoveCircleOutline } from "react-icons/md";
 export default function CartProduct({ _id, name, images, quantity, price }) {
 	const [currentIndex, setCurrentIndex] = useState(0);
 	const [quantityVal, setQuantityVal] = useState(quantity);

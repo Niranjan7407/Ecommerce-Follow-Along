@@ -116,3 +116,6 @@ Created an endpoint where we send the product details in a user's cart when requ
 
 ## **Milestone 19**
 Created cart frontend page to display the products, added an option to increase and decrease cart product quantity using + and - buttons and created an Backend endpoint for increase and decrease quantity.
+
+## **Milestone 20**
+Created an Backend endpoint that will send user data, created frontend profile page, displayed profile photo, name and email in one section, display address and add an button called "Add address" in another section, If there are no address displayed "No address found"

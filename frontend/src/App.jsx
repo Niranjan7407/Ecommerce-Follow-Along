@@ -8,6 +8,7 @@ import MyProducts from './Pages/MyProducts'
 import { Productform } from './Pages/ProductForm'
 import { ProductCardForSeller } from './Components/ProductCardForSeller'
 import './App.css'
+import Profile from './Pages/Profile'
 
 function App() {
  
@@ -22,6 +23,7 @@ function App() {
       <Route path='/my-products' element={<MyProducts />}></Route>
       <Route path='/create-product' element={<Productform />}></Route>
       <Route path='/my-product' element={<ProductCardForSeller/>}/>
+      <Route path='/profile' element={<Profile />}></Route>
     </Routes>
     {/* <Link to='/login'><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Login</button></Link>
     <Link to='/sign-up'><button className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">Sign up</button></Link> */}

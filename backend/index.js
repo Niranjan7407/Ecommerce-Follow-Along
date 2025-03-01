@@ -1,5 +1,6 @@
 const express=require('express');
 const app=express();
+const cors=require('cors');
 const connectDB=require('./src/Database/db');
 const userRouter=require('./src/Controllers/user');
 const productRouter=require('./src/Controllers/Products')
@@ -8,6 +9,7 @@ require('dotenv').config({
     path:'./src/Config/.env'
 });
 
+app.use(cors());    
 const port=process.env.port;
 const url=process.env.db_url;
 
