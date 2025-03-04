@@ -119,3 +119,6 @@ Created cart frontend page to display the products, added an option to increase 
 
 ## **Milestone 20**
 Created an Backend endpoint that will send user data, created frontend profile page, displayed profile photo, name and email in one section, display address and add an button called "Add address" in another section, If there are no address displayed "No address found"
+
+## **Milestone 21**
+Created an frontend form that will will take address, it takes country, city, address1, address2, zip code, address type as input and when we click on add address in profile it will navigate to this form page.
