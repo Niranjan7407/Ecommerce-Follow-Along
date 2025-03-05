@@ -40,7 +40,7 @@ function Profile(){
     //     setData(response.data);
     // })
     const handleAddress = () => {
-        navigate("/add-address");
+        navigate("/add-address",{state: {email: "niranjan.r.s67@kalvium.community"}});
     }
 
     

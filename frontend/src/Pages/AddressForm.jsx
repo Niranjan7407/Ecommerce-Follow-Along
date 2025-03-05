@@ -1,19 +1,21 @@
 import { useEffect, useState } from "react";
 import NavBar from "../Components/navbar";
 import bg_regis from "./../assets/bg_regis.jpg";
-import {useNavigate} from 'react-router-dom'; 
+import {useNavigate,useLocation} from 'react-router-dom'; 
+import axios from "axios";
 
 const AddressForm = () => {
     const [address, setAddress] = useState({address1: "", address2: "", city: "", country: "", zipCode: "",addressType: ""})
     const navigate = useNavigate();
+    const location = useLocation();
     useEffect(() => {  
         document.getElementsByTagName('body')[0].style.backgroundImage = `url(${bg_regis})`;
     }, [])
     const handleSubmit = async (e) => {
         e.preventDefault();
         const addressData = {
-            ...address,
-            email: "n.n.y.coc@gmail.com",
+            address:address,
+            email: location.state.email,
         };
 
         try {
@@ -62,7 +64,7 @@ const AddressForm = () => {
                     <input type="text" id="addressType" placeholder="Home/Office" value={address.addressType} onChange={(e) => setAddress({...address, addressType: e.target.value})}/>
                 </div>
                 <br />
-                <button type="submit" className="bg-emerald-800 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition" onClick={(e)=>submitHandler(e)}>Save</button>
+                <button type="submit" className="bg-emerald-800 text-white px-4 py-2 rounded-md hover:bg-emerald-700 transition" onClick={(e)=>handleSubmit(e)}>Save</button>
             </form>
         </div>
         </>

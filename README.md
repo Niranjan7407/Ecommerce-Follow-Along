@@ -122,3 +122,6 @@ Created an Backend endpoint that will send user data, created frontend profile p
 
 ## **Milestone 21**
 Created an frontend form that will will take address, it takes country, city, address1, address2, zip code, address type as input and when we click on add address in profile it will navigate to this form page.
+
+## **Milestone 22**
+Created an endpoint that will receive the address from address form in frontend and it adds the address to the address array inside user collection.

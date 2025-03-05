@@ -54,10 +54,11 @@ userRouter.post("/login", async(req,res)=>{
         }
         else{
             
-            jwt.sign({email:email}, "secretkey", (err, token)=>{
+            jwt.sign({email:email}, secret, (err, token)=>{
                 if(err){
                     return res.status(400).json({error: "invalid jwt"});
                 }
+                res.setHeader("Authorization", `Bearer ${token}`);
                 return res.status(200).json({ token: token});
             });
             return res.status(200).json({message: "User logged in"});
@@ -73,5 +74,20 @@ userRouter.get("/get-user", async(req,res)=>{
     }
     return res.status(200).json({user:user});
 });
+
+userRouter.post("/add-address",auth,async(req,res)=>{
+    const {email,address} = req.body;
+    if (!email | !address){
+        return res.status(400).json({message:"Email and Address required!"})
+    }
+    try{
+        const findUser = await userModel.findOne({email:email})
+        findUser.addresses.push(address)
+        await findUser.save()
+        return res.status(200).json({message:"Address added successfully."})
+    }catch(err){
+        console.log(err)
+    }
+})
 
 module.exports = userRouter;
