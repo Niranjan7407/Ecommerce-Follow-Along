@@ -67,13 +67,20 @@ userRouter.post("/login", async(req,res)=>{
     });
 });
 
-userRouter.get("/get-user", async(req,res)=>{
-    const email = req.body.email;
-    const user = await userModel.findOne({email:email});
+userRouter.get("/get-user",auth, async(req,res)=>{
+    const user = req.user;
     if(!user){
         return res.status(404).json({message: "User not found"});
     }
     return res.status(200).json({user:user});
+});
+
+userRouter.get("/get-user",auth, async(req,res)=>{
+    const user = req.user;
+    if(!user){
+        return res.status(404).json({message: "User not found"});
+    }
+    return res.status(200).json({cart:user.cart});
 });
 
 userRouter.post("/add-address",auth,async(req,res)=>{

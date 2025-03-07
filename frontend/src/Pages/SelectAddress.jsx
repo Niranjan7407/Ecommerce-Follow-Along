@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
+import { useLocation,useNavigate } from 'react-router-dom';
 import axios from 'axios';
 
 
@@ -9,6 +9,7 @@ const SelectAddress=()=>{
     const [selectedAddress, setSelectedAddress] = useState(null);
     const location = useLocation();
     const email = location.state.email;
+    const navigate=useNavigate();
 
     // useEffect(() => {
     //     const fetchAddresses = async () => {
@@ -74,7 +75,7 @@ const SelectAddress=()=>{
             </div>
         )}
         </div>
-        <button className='text-black bg-white border border-black'>Continue</button>
+        <button className='text-black bg-white border border-black' onClick={()=>navigate('/confirm-order',{state:{selectedAddress:selectedAddress}})}>Continue</button>
         </>
     );
     }

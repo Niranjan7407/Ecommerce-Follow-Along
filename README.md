@@ -128,3 +128,6 @@ Created an endpoint that will receive the address from address form in frontend 
 
 ## **Milestone 23**
 Created an placeorder button inside cart page and navigate to select address page when clicked, select address page that will display all the available address and have an option to select one address and an backend endpoint that will send all the addresses of the user.
+
+## **Milestone 24**
+Created the Order Confirmation Page that displays the address user selected to deliver, displays all the products we are ordering, displays the total value of the cart and has an order button at the bottom.
