@@ -125,3 +125,6 @@ Created an frontend form that will will take address, it takes country, city, ad
 
 ## **Milestone 22**
 Created an endpoint that will receive the address from address form in frontend and it adds the address to the address array inside user collection.
+
+## **Milestone 23**
+Created an placeorder button inside cart page and navigate to select address page when clicked, select address page that will display all the available address and have an option to select one address and an backend endpoint that will send all the addresses of the user.

@@ -1,8 +1,9 @@
 import { useEffect,useState } from 'react';
+import { useNavigate } from 'react-router-dom';
 import NavBar from '../Components/navbar';
 import CartProduct from '../Components/cartProduct';
 const Cart = () => {
-
+    const navigate=useNavigate();
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
@@ -43,6 +44,7 @@ const Cart = () => {
                     </div>
                 </div>
             </div>
+            <button className='bg-red-500 text-white' onClick={()=>navigate('/select-address',{state:{email:"niranjan.r.s67@kalvium.community"}})}>Place Order</button>
         </div>
         </>
     );

@@ -4,6 +4,7 @@ const {upload} = require("../../multer");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const { ErrorHandler } = require("../Utils/ErrorHandler");
+const auth = require("../Middleware/Auth");
 require("dotenv").config(
     {
         path: "../Config/.env"
@@ -89,5 +90,14 @@ userRouter.post("/add-address",auth,async(req,res)=>{
         console.log(err)
     }
 })
+
+userRouter.get("/get-address",auth, async(req,res)=>{
+    const email = req.body.email;
+    const user = await userModel.findOne({email:email});
+    if(!user){
+        return res.status(404).json({message: "User not found"});
+    }
+    return res.status(200).json({addresses:user.addresses});
+});
 
 module.exports = userRouter;
