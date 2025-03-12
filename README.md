@@ -134,3 +134,6 @@ Created the Order Confirmation Page that displays the address user selected to d
 
 ## **Milestone 25**
 Created an endpoint that will receive the products, user, address details, Created Order Schema, For each product different orders created with same address, Stored the records in Order Model.
+
+## **Milestone 26**
+I have created an endpoint that will receive the user mail then I will get the mail of the user, using that I will then need to retrive the _id of the user Using that _id I will need to then get all the orders of that user after this I will Send all the users orders in the response.

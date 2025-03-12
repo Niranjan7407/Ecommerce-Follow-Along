@@ -54,7 +54,21 @@ orderrouter.post('/place',auth,async(req,res)=>{
 
 
 
+orderrouter.get("/getorder",auth,async(req,res)=>{
+    try{
+      const email=req.user
+      if(!email){
+        return res.status(404).json({message:"not found "})
+      }
+     const orderhistory=await orders.find({email})
 
+     console.log(orderhistory)
+    res.status(200).json({message:"placed successfully"})
+    }
+    catch(err){
+        console.log(err)
+    }
+})
 
 
 module.exports=orderrouter
