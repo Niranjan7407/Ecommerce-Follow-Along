@@ -48,10 +48,6 @@ productRouter.post('/post-product',productUpload.array('files'),async (req,res)=
     const {name,email,description,category,stock,tags,price} = req.body;
     const images=req.files.map(file=>file.path);
     try{
-        const seller = await productModel.findOne({email:email});
-        if (!seller){
-            return res.status(400).json({message:"Seller not found"})
-        }
         if (images.length===0){
             return res.status(400).json({message:"Please upload atleast one images"})
         }

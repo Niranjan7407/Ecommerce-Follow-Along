@@ -11,14 +11,14 @@ const SelectAddress=()=>{
     const email = location.state.email;
     const navigate=useNavigate();
 
-    // useEffect(() => {
-    //     const fetchAddresses = async () => {
-    //     const { data } = await axios.get('http://localhost:3000/get-address', { email:email });
-    //     setAddresses(data.addresses);
-    //     };
+    useEffect(() => {
+        const fetchAddresses = async () => {
+        const { data } = await axios.get('http://localhost:3000/get-address', { email:email });
+        setAddresses(data.addresses);
+        };
     
-    //     fetchAddresses();
-    // }, []);
+        fetchAddresses();
+    }, []);
 
     const add = [
         {

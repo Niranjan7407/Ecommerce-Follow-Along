@@ -1,13 +1,14 @@
 import React, { useState, useEffect, } from 'react';
-import {useNavigate,useParams} from 'react-router-dom';
+import {useNavigate,useLocation} from 'react-router-dom';
 import NavBar from '../Components/navbar';
 import axios from 'axios';
 import bgg from './../assets/bg_regis.jpg'
 
 export const Productform = () => {
-    const { id } = useParams();
+    const location=useLocation()
     const navigate=useNavigate()
-    const isEdit = Boolean(id);
+    const isEdit = location.state && location.state.isEdit || false;
+    const id= location.state && location.state.id || 0;
     const [name, setName] = useState('');
     const [price, setPrice] = useState('');
     const [description, setDescription] = useState('');
@@ -25,21 +26,21 @@ export const Productform = () => {
 
     useEffect(() => {
         if (isEdit) {
-
+           
             axios
-                .get(`http://localhost:8000/api/v2/product/product/${id}`)
+                .get(`http://localhost:3000/product/get-product/${id}`)
                 .then((response) => {
                     const p = response.data.product;
                     setName(p.name);
                     setDescription(p.description);
                     setCategory(p.category);
-                    setTag(p.tags || "");
+                    setTag(p.tags);
                     setPrice(p.price);
                     setStock(p.stock);
                     setEmail(p.email);
                     if (p.images && p.images.length > 0) {
                         setPreview(
-                            p.images.map((imgPath) => `http://localhost:3000${imgPath}`)
+                            p.images.map((imgPath) => `http://localhost:3000/${imgPath}`)
                         );
                     }
                 })
@@ -68,31 +69,19 @@ export const Productform = () => {
         formData.append('tag', tag);
 
         image.forEach((file) => {
-            formData.append('image', file);
+            formData.append('files', file);
         });
 
         console.log(formData);
-        alert('Product added successfully');
 
-        const res = await axios.post('http://localhost:3000/product/post-product', formData);
-
-        if (res.status === 200) {
-            setName('');
-            setEmail('');
-            setPrice('');
-            setDescription('');
-            setCategory('');
-            setStock('');
-            setTag('');
-            setImage([]);
-            setPreview([]);
-        }
-    };
+        
+    
 
     try {
         if (isEdit) {
+            console.log(isEdit)
           const response = axios.put(
-              `http://localhost:8000/api/v2/product/update-product/${id}`,
+              `http://localhost:3000/product/edit-product/${id}`,
               formData,
               {
                   headers: { "Content-Type": "multipart/form-data" },
@@ -104,22 +93,28 @@ export const Productform = () => {
           }
       }
        else {
-          const res = axios.post("http://localhost:3000/product/post-product", formData, {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-    
-        });
+        console.log(isEdit)
+          const res = await axios.post('http://localhost:3000/product/post-product', formData,{headers:{'Content-Type':'multipart/form-data'}});
+
         if (res.status === 200) {
-            alert("Product Added Successfully");
+            setName('');
+            setEmail('');
+            setPrice('');
+            setDescription('');
+            setCategory('');
+            setStock('');
+            setTag('');
             setImage([]);
             setPreview([]);
-          }
+            alert("Product Added Successfully.")
+        }
+        console.log(res.data)
         } 
     } catch (error) {
         console.error("Error adding product:", error);
         alert("Failed to add product");
       }
+    };
 
     return (
         <>
@@ -136,7 +131,7 @@ export const Productform = () => {
                         onChange={(e) => setEmail(e.target.value)}
                         value={email}
                         placeholder="Enter your email"
-                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50'
+                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50 text-white'
                     />
                 </div>
 
@@ -148,7 +143,7 @@ export const Productform = () => {
                         onChange={(e) => setName(e.target.value)}
                         value={name}
                         placeholder="Enter your name"
-                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50'
+                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50 text-white'
                     />
                 </div>
 
@@ -160,7 +155,7 @@ export const Productform = () => {
                         onChange={(e) => setPrice(e.target.value)}
                         value={price}
                         placeholder="Enter the price"
-                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50'
+                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50 text-white'
                     />
                 </div>
 
@@ -172,7 +167,7 @@ export const Productform = () => {
                         onChange={(e) => setDescription(e.target.value)}
                         value={description}
                         placeholder="Enter a description"
-                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50'
+                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50 text-white'
                     />
                 </div>
 
@@ -184,7 +179,7 @@ export const Productform = () => {
                         onChange={(e) => setCategory(e.target.value)}
                         value={category}
                         placeholder="Enter the category"
-                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50'
+                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50 text-white'
                     />
                 </div>
 
@@ -196,7 +191,7 @@ export const Productform = () => {
                         onChange={(e) => setStock(e.target.value)}
                         value={stock}
                         placeholder="Enter stock available"
-                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50'
+                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50 text-white'
                     />
                 </div>
 
@@ -208,7 +203,7 @@ export const Productform = () => {
                         onChange={(e) => setTag(e.target.value)}
                         value={tag}
                         placeholder="Enter the tag"
-                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50'
+                        className='border border-gray-500 rounded-md p-1 w-full mt-1 bg-indigo-50 text-white'
                     />
                 </div>
 

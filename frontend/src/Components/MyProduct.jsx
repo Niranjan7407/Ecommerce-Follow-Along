@@ -17,13 +17,13 @@ function MyProduct({ _id, name, images, description, price }) {
     const currentImage = images && images.length > 0 ? images[currentIndex] : null;
 
     const handleEdit = () => {
-        navigate(`/create-product/${_id}`);
+        navigate(`/create-product/`,{state:{isEdit:true,id:_id}});
     };
 
     const handleDelete = async () => {
         try {
             const response = await axios.delete(`
-                http://localhost:8000/api/v2/product/delete-product/${_id}`
+                http://localhost:3000/product/delete-product/${_id}`
             );
             if (response.status === 200) {
                 alert("Product deleted successfully!");
@@ -42,7 +42,7 @@ function MyProduct({ _id, name, images, description, price }) {
                 <div className="w-full">
                     {currentImage && (
                         <img
-                            src={`http://localhost:8000${currentImage}`}
+                            src={`http://localhost:3000/${currentImage}`}
                             alt={name}
                             className="w-full h-56 object-cover rounded-lg mb-2"
                         />

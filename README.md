@@ -131,3 +131,6 @@ Created an placeorder button inside cart page and navigate to select address pag
 
 ## **Milestone 24**
 Created the Order Confirmation Page that displays the address user selected to deliver, displays all the products we are ordering, displays the total value of the cart and has an order button at the bottom.
+
+## **Milestone 25**
+Created an endpoint that will receive the products, user, address details, Created Order Schema, For each product different orders created with same address, Stored the records in Order Model.

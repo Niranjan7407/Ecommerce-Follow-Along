@@ -49,7 +49,7 @@ function Profile(){
         <div className="text-black">
             <div className="flex flex-row  justify-start" style={{gap: "2rem"}}>
                 <div className="profile-img">
-                    <img src="https://picsum.photos/150" className="rounded-lg" alt="profile" />
+                    
                 </div>
                 <div className="profile-info">
                     <h2>Niranjan</h2>
