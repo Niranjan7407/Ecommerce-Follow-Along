@@ -1,7 +1,7 @@
 const {Router}=require('express');
 const auth = require('../Middleware/auth');
 const user=require("../Model/userModel");
-const orders = require('../Model/OrderSchema');
+const orders = require('../Model/orderModel');
 const orderrouter=Router()
 
 orderrouter.post('/place',auth,async(req,res)=>{
@@ -33,8 +33,8 @@ orderrouter.post('/place',auth,async(req,res)=>{
             const order = new orders ({
                 user: user._id,
                 orderItems: [item], // Each order contains a single item
-                shippingAddress,
-                totalAmount,
+                shippingAddress:shippingAddress,
+                totalAmount:totalAmount,
             });
             return order.save();
         });
@@ -42,8 +42,7 @@ orderrouter.post('/place',auth,async(req,res)=>{
         const orders = await Promise.all(orderPromises);
 
         
-      const arr=user.cart
-      arr.splice(o,arr.length)
+      
 
         res.status(201).json({ message: 'Orders placed and cart cleared successfully.', orders });
     } catch (error) {
@@ -60,10 +59,10 @@ orderrouter.get("/getorder",auth,async(req,res)=>{
       if(!email){
         return res.status(404).json({message:"not found "})
       }
-     const orderhistory=await orders.find({email})
+     const orderhistory=await orders.find({email:email})
 
      console.log(orderhistory)
-    res.status(200).json({message:"placed successfully"})
+    res.status(200).json({orders:orderhistory})
     }
     catch(err){
         console.log(err)

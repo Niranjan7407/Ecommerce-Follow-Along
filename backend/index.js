@@ -3,7 +3,8 @@ const app=express();
 const cors=require('cors');
 const connectDB=require('./src/Database/db');
 const userRouter=require('./src/Controllers/user');
-const productRouter=require('./src/Controllers/Products')
+const productRouter=require('./src/Controllers/Products');
+const orderrouter = require('./src/Controllers/Order');
 
 require('dotenv').config({
     path:'./src/Config/.env'
@@ -28,6 +29,7 @@ app.use(express.json());
 
  app.use('/product',productRouter)
 
+ app.use('/order',orderrouter)
  
 
  
