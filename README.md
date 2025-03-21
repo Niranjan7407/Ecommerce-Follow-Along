@@ -162,3 +162,26 @@ We will add my-orders page in navbar for better navigation.
  In your order conformation page you need two options for payment one is COD and another is online payment.
  Create radio buttons to select COD or online payment and when we click on online payment PayPal buttons need to be displayed.
  In next milestone we will write an code to display and use those PayPal online Payments buttons.
+
+## **Milestone 30**
+
+## **Milestone 31**
+In this milestone, we created a Redux store to manage global state for the user's email. We configured the store, set up actions, and connected it to the main application.
+
+Steps I Followed:
+Create a Redux Store
+
+Set up a new folder named store.
+Inside this folder, created store.js to configure the Redux store with a user slice, managing the email state.
+Define User Actions
+
+Created userActions.js inside the store folder to define the updateEmail() function.
+This function dispatches the setEmail() action to update the global email state.
+Wrap the App with Provider
+
+In index.js, imported the Redux Provider component and wrapped the App component, passing the store as a prop.
+This ensures that all components in the app can access the global state.
+Create a Component to Use the State
+
+In a component (e.g., App.js), imported useSelector and useDispatch from react-redux.
+Used useSelector to read the email state and dispatch(updateEmail()) to modify the email.
