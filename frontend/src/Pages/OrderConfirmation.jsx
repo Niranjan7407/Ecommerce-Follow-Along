@@ -2,6 +2,8 @@ import { useLocation } from "react-router-dom"
 import { useEffect,useState } from "react"
 import axios from "axios"
 
+import { PayPalScriptProvider, PayPalButtons } from "@paypal/react-paypal-js";
+
 const OrderConfirmation=()=>{
     const location=useLocation();
     const {selectedAddress}=location.state;
@@ -81,6 +83,16 @@ const OrderConfirmation=()=>{
             <h2>Total: {total.toFixed(2)}</h2>
         </div>
         <button className="border text-white bg-blue-500">Continue to Pay</button>
+        <PayPalScriptProvider options={{ clientId: "AYGwnwmeBjjWperGy4a-RWi9mKWFg6LOl8JTWq4QYLF_Sz20OA_-IE6mEpye1F0XbyXeJQQcsXmawKHB" }}>
+                              <PayPalButtons style={{ layout: "horizontal" }} 
+                                  createOrder={(data,actions)=>{
+                                     return actions.order.create({purchase_units:[{amaount:{value:totalPrice.toFixed(2)}}]})
+                                  }}
+                                  onApprove={(data,actions)=>{
+                                     return actions.order.capture()
+                                  }}
+                              >Pay with paypal </PayPalButtons>
+                         </PayPalScriptProvider>
         </>
         }
         {
