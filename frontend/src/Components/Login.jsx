@@ -1,12 +1,44 @@
 import { useState,useEffect } from "react";
 import bgg from './../assets/bg_regis.jpg'
+import axios from 'axios'
+import { useNavigate } from "react-router-dom";
 
 
 export default function Example() {
   const [showPassword, setShowPassword] = useState(false);
+  const navigate=useNavigate()
   useEffect(()=>{
     document.body.style.backgroundImage=`url(${bgg})`
   })
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const email = e.target.email.value;
+    const password = e.target.password.value;
+  
+    console.log("Email:", email, "Password:", password);
+    axios.post('http://localhost:3000/auth/login', {
+      email: email,
+      password: password
+    })
+      .then((response) => {
+        if (response.status !==200) throw new Error("Login failed");
+
+        console.log(response)
+    const token = response.data.token
+
+    if (token) {
+      localStorage.setItem("token", token);
+      console.log("Login successful, token saved!");
+      navigate('/');
+    } else {
+      console.error("No token received");
+      alert("Login failed, try again!");
+    }
+  }).catch ((err)=> {
+    console.error("Error:", err);
+  })
+  };
   
 
   return (
@@ -26,7 +58,7 @@ export default function Example() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <label
                 htmlFor="email"

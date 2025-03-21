@@ -1,7 +1,10 @@
 const {Router} = require('express')
 const productModel = require('./../Model/productModel')
 const {productUpload} = require('./../../multer')
+const auth=require('./../Middleware/Auth')
+const userModel = require('./../Model/userModel')
 const path = require('path');
+const mongoose = require('mongoose');
 
 const productRouter=Router();
 
@@ -18,7 +21,22 @@ productRouter.get('/get-products',async (req,res)=>{
     }
 })
 
-productRouter.put('edit-cart',async (req,res)=>{
+productRouter.get('/get-my-products',auth,async (req,res)=>{
+    try{
+        console.log(req.user)
+        const {email}=req.user
+        const products = await productModel.find({email:email})
+        if (products.length === 0){
+            return res.status(400).json({message:"No products foud"})
+        }
+        console.log(products)
+        return res.status(200).json({products:products})
+    }catch(err){
+        console.log(err)
+    }
+})
+
+productRouter.put('edit-cart',auth,async (req,res)=>{
     try{
         const {email,productId,quantity}=req.body;
         
@@ -69,53 +87,62 @@ productRouter.post('/post-product',productUpload.array('files'),async (req,res)=
 
 })
 
-productRouter.post("/cart", async(req, res) => {
-    const {email, id, name, quantity} = req.body;
+productRouter.post("/cart",auth, async(req, res) => {
+    const {id, quantity} = req.body;
 
     try {
-        if (!email || !id || !name || !quantity) {
+        if ( !id ||  !quantity) {
             return res.status(400).json({ message: "Missing required fields" });
         }
         
-        const findEmail = await userModel.findOne({ email: "email"})
+        const findEmail = req.user
         if (!findEmail) {
             return res.status(404).json({ message: "User does not exist" });
         }
-        if (!mongoose.types.objectId.isValid(id)) {
+        if (!mongoose.Types.ObjectId.isValid(id)) {
             return res.status(400).json({ message: "Invalid product id" });
         }
 
-        if (quantity > 0 && !quantity) {
+        if (quantity < 0 || !quantity) {
             return res.status(400).json({ message: "Invalid quantity" });
         }
 
-        const findProduct = await productModel.findById(productId);
+        const findProduct = await productModel.findById(id);
         if (!findProduct) {
             return res.status(404).json({ message: "Product not found" });
         }
 
-        const cartProduct = await userModel.cart.findIndex((i) => {
-            return i.productId === productId
-        })
+        const findUser = await userModel.findOne({ email: findEmail.email });
+        if (!findUser) {
+            return res.status(404).json({ message: "User not found" });
+        }
+        const cartIndex = findUser.cart.findIndex((item) => item.productId.toString() === id);
+        if (cartIndex !== -1) {
+            findUser.cart[cartIndex].quantity = quantity;
+            findUser.cart[cartIndex].price = findProduct.price * quantity;
+        } else {
+            findUser.cart.push({ productId: id,productName: findProduct.name, quantity: quantity,price:findProduct.price*quantity });
+        }
+        return res.status(200).json({ message: "Product added to cart" });  
     }
     catch (error) {
         console.log(error);
     }
 })
 
-productRouter.get("/getcart", async(req, res)=>{
+productRouter.get("/getcart",auth, async(req, res)=>{
     try{
-        const email = req.body;
-        if (!email) {
+        if (!req.user) {
             return res.status(404).json({message:"user does not exist"});
         }
-        const user = await userModel.findOne({email:email}).populate({
+        const user = await userModel.findOne({email:req.user.email}).populate({
             path: 'cart.productId',
             model:productModel
         })
         if(!user){
             return res.status(404).json({message:"User not found"});
         }
+        return res.status(200).json({cart:user.cart});
     }
     catch (error){
         console.log(error);

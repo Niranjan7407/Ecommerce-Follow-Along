@@ -14,7 +14,7 @@ app.use(cors());
 const port=process.env.port;
 const url=process.env.db_url;
 
-app.listen(3000,async ()=>{
+app.listen(port,async ()=>{
     console.log(`Server is running on port ${port}`);
     try{
         await connectDB(url);
@@ -22,6 +22,8 @@ app.listen(3000,async ()=>{
         console.log(error);
     }
 })
+
+app.use('/uploads', express.static('../backend/uploads'));
 
 app.use(express.json());
 
@@ -31,5 +33,6 @@ app.use(express.json());
 
  app.use('/order',orderrouter)
  
+ app.use('/productUploads', express.static('../backend/productUploads'));
 
  

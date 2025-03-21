@@ -2,6 +2,7 @@ const {Router}=require('express');
 const auth = require('../Middleware/auth');
 const user=require("../Model/userModel");
 const orders = require('../Model/orderModel');
+const rolemiddleware = require('../Middleware/role');
 const orderrouter=Router()
 
 orderrouter.post('/place',auth,async(req,res)=>{
@@ -68,6 +69,32 @@ orderrouter.get("/getorder",auth,async(req,res)=>{
         console.log(err)
     }
 })
+
+orderrouter.patch('/cancel-order/:orderId',auth,rolemiddleware(['user']), async (req, res) => {
+    try {
+        const { orderId } = req.params;
+       
+        // Find the order by ID
+        const order = await orders.findById(orderId);
+        console.log(order);
+        if (!order) {
+            return res.status(404).json({ message: 'Order not found.' });
+        }
+
+        // Update order status to 'cancelled'
+        if(order.orderStatus==['Delivered']){
+            res.status(404).json({ message: 'Order is already delivered'});
+        }
+
+        order.orderStatus = ['Cancelled'];
+        await order.save();
+
+        res.status(200).json({ message: 'Order cancelled successfully.', order });
+    } catch (error) {
+        console.error('Error cancelling order:', error);
+        res.status(500).json({ message: error.message });
+    }
+});
 
 
 module.exports=orderrouter

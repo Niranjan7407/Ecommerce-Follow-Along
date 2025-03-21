@@ -2,17 +2,18 @@ import { useEffect,useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import NavBar from '../Components/navbar';
 import CartProduct from '../Components/cartProduct';
+import axios from 'axios';
 const Cart = () => {
     const navigate=useNavigate();
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
-        fetch(`http://localhost:3000/getcart`)
+        axios.get(`http://localhost:3000/product/getcart`,{headers:{"Authorization":localStorage.getItem("token")}})
             .then((res) => {
-                if (!res.ok) {
+                if (res.status!==200) {
                     console.log("error in cart page");
                 }
-                return res.json();
+                return res.data;
             })
             .then((data) => {
                 setProducts(data.cart.map(product=>({quantity:product['quantity'],...product['productId']})));

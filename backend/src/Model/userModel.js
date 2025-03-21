@@ -43,6 +43,7 @@ const userSchema = new mongoose.Schema({
       ],
       role:{
         type: String,
+        eval:["user","admin","seller"],
         default: "user",
       },
       avatar:{
@@ -61,7 +62,8 @@ const userSchema = new mongoose.Schema({
      },
      cart: [{
       productId: {
-          type: String,
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Product',
           unique: true,
           required: true,
       },

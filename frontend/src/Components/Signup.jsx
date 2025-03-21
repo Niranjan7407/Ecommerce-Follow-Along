@@ -1,6 +1,7 @@
 import { useState,useEffect } from "react";
 import {MdAccountCircle} from 'react-icons/md';
 import bgg from './../assets/bg_regis.jpg'
+import { useNavigate } from "react-router-dom";
 import axios from 'axios';
 
 export default function Example() {
@@ -9,21 +10,23 @@ export default function Example() {
   const [password, setPassword] = useState('');
   const [name, setName] = useState('');
   const [avatar, setAvatar] = useState(null);
-
+  const [file, setFile] = useState(null);
+  const navigate = useNavigate();
   useEffect(()=>{
       document.body.style.backgroundImage=`url(${bgg})`
-    })
+      return () => (document.body.style.backgroundImage = '');
+    },[])
 
-  const handleFileSubmit = (e) => {
-    const file = e.target.files[0];
+  // const handleFileSubmit = (e) => {
+  //   const file = e.target.files[0];
 
-    if (file){
-        const filePath= URL.createObjectURL(file);
-        console.log(filePath);
-        setAvatar(file);
-    }
-
-}
+  //   if (file){
+  //       const filePath= URL.createObjectURL(file);
+  //       console.log(filePath);
+  //       setAvatar(file);
+  //   }
+  // }
+    
 
     const handleSubmit=async (e)=>{
         e.preventDefault()
@@ -33,8 +36,11 @@ export default function Example() {
         formData.append('password', password);
         formData.append('avatar', avatar);
 
-        axios.post('http://localhost:3000/api/users', formData,config).then((res)=>{
+        axios.post('http://localhost:3000/auth/create-user', formData,{headers:{"Content-Type":"multipart/form-data"}}).then((res)=>{
             console.log(res);
+            alert('User created successfully');
+            navigate('/login');
+
         }).catch((err)=>{
             console.log(err);
         })
@@ -55,7 +61,7 @@ export default function Example() {
         </div>
 
         <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
-          <form className="space-y-6" action="#" method="POST">
+          <form className="space-y-6" onSubmit={handleSubmit}>
           <div>
               <label
                 htmlFor="name"
@@ -238,7 +244,6 @@ className="size-8 absolute inset-y-0 right-0 flex items-center pr-3 text-white h
             <div>
               <button
                 type="submit"
-                onClick={handleSubmit}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign up
