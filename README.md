@@ -184,5 +184,5 @@ In index.js, imported the Redux Provider component and wrapped the App component
 This ensures that all components in the app can access the global state.
 Create a Component to Use the State
 
-In a component (e.g., App.js), imported useSelector and useDispatch from react-redux.
+In a component (e.g., App.js), imported useSelector and useDispatch from react-redux
 Used useSelector to read the email state and dispatch(updateEmail()) to modify the email.
