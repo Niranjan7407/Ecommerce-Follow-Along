@@ -164,8 +164,9 @@ We will add my-orders page in navbar for better navigation.
  In next milestone we will write an code to display and use those PayPal online Payments buttons.
 
 ## **Milestone 30**
+In this milestone, I Implemented online payment using PayPal API using the client key that we created earlier, and downloaded NPM package called react-paypal-js that will provide an component called PayPalScriptProvider which will display online payment methods like credit or debit card etc..,
 
-## **Milestone 31**
+## **Milestone 31 & 32**
 In this milestone, we created a Redux store to manage global state for the user's email. We configured the store, set up actions, and connected it to the main application.
 
 Steps I Followed:

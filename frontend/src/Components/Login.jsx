@@ -2,6 +2,8 @@ import { useState,useEffect } from "react";
 import bgg from './../assets/bg_regis.jpg'
 import axios from 'axios'
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from 'react-redux'
+ import { loginuser } from '../Redux/action'
 
 
 export default function Example() {
@@ -10,6 +12,12 @@ export default function Example() {
   useEffect(()=>{
     document.body.style.backgroundImage=`url(${bgg})`
   })
+
+  const dispatch=useDispatch()
+ 
+  const handleclick=()=>{
+    dispatch(loginuser({email,password}))
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -179,6 +187,7 @@ export default function Example() {
             <div>
               <button
                 type="submit"
+                onClick={handleclick}
                 className="flex w-full justify-center rounded-md bg-indigo-600 px-3 py-1.5 text-sm font-semibold leading-6 text-white shadow-sm hover:bg-indigo-500 focus-visible:outline focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-indigo-600"
               >
                 Sign in
