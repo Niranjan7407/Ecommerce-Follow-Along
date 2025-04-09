@@ -186,3 +186,9 @@ Create a Component to Use the State
 
 In a component (e.g., App.js), imported useSelector and useDispatch from react-redux
 Used useSelector to read the email state and dispatch(updateEmail()) to modify the email.
+
+## **Milestone 33**
+In this milestone I used JWT to create a token upon login and then made stored it in a cookie.
+
+## **Milestone 34**
+Got the token from the browser cookie and send it to the server. In backend, used middleware function (Auth.js) to validate that JWT token.
