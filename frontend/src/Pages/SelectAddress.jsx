@@ -13,42 +13,17 @@ const SelectAddress=()=>{
 
     useEffect(() => {
         const fetchAddresses = async () => {
-        const { data } = await axios.get('http://localhost:3000/get-address', { email:email });
+        const { data } = await axios.get('http://localhost:3000/auth/get-address', {headers:{"Authorization":localStorage.getItem("token")}});
+        console.log(data)
         setAddresses(data.addresses);
         };
     
         fetchAddresses();
     }, []);
 
-    const add = [
-        {
-          country: "USA",
-          city: "New York",
-          address1: "123 Main St",
-          address2: "Apt 4B",
-          zipCode: 10001,
-          addressType: "Home"
-        },
-        {
-          country: "Canada",
-          city: "Toronto",
-          address1: "456 Maple Ave",
-          address2: "Unit 22",
-          zipCode: 1001,
-          addressType: "Work"
-        },
-        {
-          country: "UK",
-          city: "London",
-          address1: "789 Oxford St",
-          address2: "",
-          zipCode: 10025,
-          addressType: "Vacation Home"
-        }
-      ];
         useEffect(() => {
-            document.getElementsByTagName('body')[0].style.backgroundColor="white";
-            setAddresses(add);
+          document.getElementsByTagName('body')[0].style.backgroundImage="";
+          document.getElementsByTagName('body')[0].style.backgroundColor="#F0FFFF";
         }, []);
       
     
@@ -56,7 +31,7 @@ const SelectAddress=()=>{
         setSelectedAddress(address);
     };
     
-    return (
+    return (addresses && addresses.length > 0) ? (
         <>
         <h1 className='text-black'>Select Address</h1>
         <div className='flex flex-col justify-center justify-items-center items-center'>
@@ -77,7 +52,12 @@ const SelectAddress=()=>{
         </div>
         <button className='text-black bg-white border border-black' onClick={()=>navigate('/confirm-order',{state:{selectedAddress:selectedAddress}})}>Continue</button>
         </>
-    );
+    ) : (
+        <div className='flex flex-col justify-center items-center'>
+            <h1 className='text-black'>No Addresses Found</h1>
+            <button className='text-black bg-white border border-black' onClick={()=>navigate('/add-address',{state: {email: email}})}>Add Address</button>
+        </div>
+    ); 
     }
 
 export default SelectAddress;

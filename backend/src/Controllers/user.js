@@ -63,6 +63,7 @@ userRouter.post("/login", async(req,res)=>{
     const token=jwt.sign({id:user._id}, secret)
     console.log(token)
     res.setHeader("Authorization", `Bearer ${token}`);
+    res.cookie('token',token,{maxAge:(1000*60*60*24*7)})
     return res.status(200).json({ token: `Bearer ${token}`});
     }
     catch(err){
@@ -83,25 +84,27 @@ userRouter.get("/get-user",auth, async(req,res)=>{
 
 
 userRouter.post("/add-address",auth,async(req,res)=>{
-    const {email,address} = req.body;
-    if (!email | !address){
-        return res.status(400).json({message:"Email and Address required!"})
+    const address = req.body;
+    if (!address){
+        return res.status(400).json({message:"Address required!"})
     }
     try{
-        const findUser = await userModel.findOne({email:email})
+        const findUser = await userModel.findById(req.user._id);
+        if (!findUser){
+            return res.status(400).json({message:"User not found!"})
+        }
         findUser.addresses.push(address)
         await findUser.save()
-        return res.status(200).json({message:"Address added successfully."})
+        return res.status(201).json({message:"Address added successfully."})
     }catch(err){
         console.log(err)
     }
 })
 
 userRouter.get("/get-address",auth, async(req,res)=>{
-    const email = req.body.email;
-    const user = await userModel.findOne({email:email});
-    if(!user){
-        return res.status(404).json({message: "User not found"});
+    const user = req.user;
+    if (!user){
+        return res.status(400).json({message:"User not found!"})
     }
     return res.status(200).json({addresses:user.addresses});
 });

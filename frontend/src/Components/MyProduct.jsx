@@ -6,6 +6,11 @@ function MyProduct({ _id, name, images, description, price }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     const navigate = useNavigate();
 
+    useEffect(()=>{
+        document.getElementsByTagName('body')[0].style.backgroundImage="";
+        document.getElementsByTagName('body')[0].style.backgroundColor="#F0FFFF";
+    },[])
+
     useEffect(() => {
         if (!images || images.length === 0) return;
         const interval = setInterval(() => {

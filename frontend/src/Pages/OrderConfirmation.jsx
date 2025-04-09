@@ -21,30 +21,15 @@ const OrderConfirmation=()=>{
     useEffect(()=>{
         document.body.style.backgroundColor='white'
         document.body.style.color='black'
-    })
+    },[])
 
     useEffect(()=>{
-        const c = [
-            {
-              productId: "12345",
-              productName: "Wireless Headphones",
-              quantity: 2,
-              price: 99.99
-            },
-            {
-              productId: "67890",
-              productName: "Gaming Mouse",
-              quantity: 1,
-              price: 49.99
-            },
-            {
-              productId: "11223",
-              productName: "Mechanical Keyboard",
-              quantity: 1,
-              price: 129.99
-            }
-          ];
-          setCart(c);
+        axios.get('http://localhost:3000/product/getcart',{headers:{Authorization:localStorage.getItem('token')}}).then((res)=>{
+            setCart(res.data.cart)
+        }).catch((err)=>{
+            console.log(err)
+        })
+
           
         },[])
           
@@ -82,17 +67,16 @@ const OrderConfirmation=()=>{
             <h2>Checkout:</h2>
             <h2>Total: {total.toFixed(2)}</h2>
         </div>
-        <button className="border text-white bg-blue-500">Continue to Pay</button>
-        <PayPalScriptProvider options={{ clientId: "AYGwnwmeBjjWperGy4a-RWi9mKWFg6LOl8JTWq4QYLF_Sz20OA_-IE6mEpye1F0XbyXeJQQcsXmawKHB" }}>
+        q
+        <PayPalScriptProvider options={{ clientId: "Ae0JbHznWDQX53hPGsAEampnhjtEBoYj-3o-HU3RR0c7ziKPciKtG8jb2opiqi8yx3MkSYNFuin_6JEx" }}>
                               <PayPalButtons style={{ layout: "horizontal" }} 
                                   createOrder={(data,actions)=>{
-                                     return actions.order.create({purchase_units:[{amaount:{value:totalPrice.toFixed(2)}}]})
+                                     return actions.order.create({purchase_units:[{amount:{value:total.toFixed(2)}}]})
                                   }}
                                   onApprove={async(data,actions)=>{
                                     const order1= actions.order.capture()
                                     try{
-                                    const response=await axios.post('http://localhost:3000/order/verify-payment',{orderId:order1.id},
-                                        )
+                                    const response=await axios.post('http://localhost:3000/order/verify-payment',{orderId:order1.id})
 
                                    if(response.data.success){
                                     onSuccess()

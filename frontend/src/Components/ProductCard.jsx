@@ -32,7 +32,7 @@ export default function ProductCard({product}) {
             navigate('/login')
             return;
         }
-        axios.post('http://localhost:3000/product/cart',{id:id,quantity:1},{headers:{"Authorization":localStorage.getItem("token")}}).then((res)=>{
+        axios.patch('http://localhost:3000/product/cart',{id:id,quantity:1},{headers:{"Authorization":localStorage.getItem("token")}}).then((res)=>{
             console.log(res);
             alert('Product added to cart')
         }).catch((err)=>{

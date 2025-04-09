@@ -107,7 +107,7 @@ orderrouter.patch('/cancel-order/:orderId',auth,rolemiddleware(['user']), async 
     }
 });
 
-orderrouter.get('/verify-payment',auth,async(req,res)=>{
+orderrouter.post('/verify-payment',auth,async(req,res)=>{
     const {orderId}=req.user
 
     paypal.payment.get(orderId,async(error,payment)=>{
@@ -117,7 +117,7 @@ orderrouter.get('/verify-payment',auth,async(req,res)=>{
         if(payment.state!=="approved"){
             res.status(500).json({message:"cancel payment"})
         }
-        await orders.findByIdAndUpdate(orderId,{orderStatus:['paid']})  
+        await orders.findByIdAndUpdate(orderId,{orderStatus:'Paid'})  
     })
 
 })

@@ -8,15 +8,18 @@ const Cart = () => {
     const [products, setProducts] = useState([]);
 
     useEffect(() => {
+        document.getElementsByTagName('body')[0].style.backgroundImage="";
+        document.getElementsByTagName('body')[0].style.backgroundColor="#F0FFFF";
         axios.get(`http://localhost:3000/product/getcart`,{headers:{"Authorization":localStorage.getItem("token")}})
             .then((res) => {
                 if (res.status!==200) {
                     console.log("error in cart page");
                 }
+                console.log(res.data)
                 return res.data;
             })
             .then((data) => {
-                setProducts(data.cart.map(product=>({quantity:product['quantity'],...product['productId']})));
+                setProducts(data.cart);
                 console.log("Products fetched:",data.cart);
             })
             .catch((err) => {

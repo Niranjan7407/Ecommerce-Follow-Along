@@ -21,9 +21,9 @@ export default function Homepage() {
         const fetchProducts=async ()=>{
             axios.get("http://localhost:3000/product/get-products")
         .then((res)=>{
-            // if (!res.ok){
-            //     throw new Error(`HTTP Error! status:${res.status}`)
-            // }
+            if (res.status!==200){
+                throw new Error(`HTTP Error! status:${res.status}`)
+            }
             return res.data
         }).then((data)=>{
             console.log(data)

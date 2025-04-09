@@ -67,6 +67,10 @@ const userSchema = new mongoose.Schema({
           unique: true,
           required: true,
       },
+      productImages:{
+        type: [String],
+        required: true,
+      },
       productName: {
           type: String,
           required: true,

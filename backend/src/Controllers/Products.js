@@ -33,34 +33,37 @@ productRouter.get('/get-my-products',auth,async (req,res)=>{
         return res.status(200).json({products:products})
     }catch(err){
         console.log(err)
-    }
+    }   
 })
 
-productRouter.put('edit-cart',auth,async (req,res)=>{
-    try{
-        const {email,productId,quantity}=req.body;
+// productRouter.patch('/edit-cart',auth,async (req,res)=>{
+//     try{
+//         const {productId,quantity}=req.body;
         
-        if (!email || !productId || quantity===undefined){
-            return res.status(400).json({message:"Please provide all fields"})
-        }
-        const findUser = await userModel.findOne({email:email})
-        if (!findUser){
-            return res.status(400).json({message:"User not found"})
-        }
-        const findProduct = await productModel.findById(productId)
-        if (!findProduct&&findProduct.stock<quantity){
-            return res.status(400).json({message:"Product not found or out of stock"})
-        }
+//         if ( !productId || quantity===undefined){
+//             return res.status(400).json({message:"Please provide all fields"})
+//         }
+//         const findUser = await userModel.findOne({email:req.user.email})
+//         if (!findUser){
+//             return res.status(400).json({message:"User not found"})
+//         }
+//         const findProduct = await productModel.findById(productId)
+//         if (!findProduct&&findProduct.stock<quantity){
+//             return res.status(400).json({message:"Product not found or out of stock"})
+//         }
 
-        const findCartProduct=findUser.cart.filter((item)=>item.productId.toString()===productId.toString())
-        if (findCartProduct){
-            findCartProduct.quantity=quantity
-        }
-        return res.status(200).json({message:"Cart updated successfully"})
-    }catch(err){
-        console.log(err)
-    }
-})
+//         const findCartProduct=findUser.cart.findIndex((item)=>item.productId.toString()===productId.toString())
+//         if (findCartProduct!==-1){
+//             findUser.cart[findCartProduct]=quantity;
+//         }else{
+//             findUser.cart.push({productId:productId,quantity:quantity})
+//         }
+//         await findUser.save()
+//         return res.status(200).json({message:"Cart updated successfully"})
+//     }catch(err){
+//         console.log(err)
+//     }
+// })
 
 productRouter.post('/post-product',productUpload.array('files'),async (req,res)=>{
     const {name,email,description,category,stock,tags,price} = req.body;
@@ -87,7 +90,7 @@ productRouter.post('/post-product',productUpload.array('files'),async (req,res)=
 
 })
 
-productRouter.post("/cart",auth, async(req, res) => {
+productRouter.patch("/cart",auth, async(req, res) => {
     const {id, quantity} = req.body;
 
     try {
@@ -117,16 +120,18 @@ productRouter.post("/cart",auth, async(req, res) => {
             return res.status(404).json({ message: "User not found" });
         }
         const cartIndex = findUser.cart.findIndex((item) => item.productId.toString() === id);
-        if (cartIndex !== -1) {
+        if (cartIndex !== -1) { 
             findUser.cart[cartIndex].quantity = quantity;
             findUser.cart[cartIndex].price = findProduct.price * quantity;
         } else {
-            findUser.cart.push({ productId: id,productName: findProduct.name, quantity: quantity,price:findProduct.price*quantity });
+            findUser.cart.push({ productId: id,productImages:findProduct.images,productName: findProduct.name, quantity: quantity,price:findProduct.price*quantity });
         }
+        await findUser.save();
         return res.status(200).json({ message: "Product added to cart" });  
     }
     catch (error) {
-        console.log(error);
+        console.error(error);
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 })
 
@@ -135,17 +140,15 @@ productRouter.get("/getcart",auth, async(req, res)=>{
         if (!req.user) {
             return res.status(404).json({message:"user does not exist"});
         }
-        const user = await userModel.findOne({email:req.user.email}).populate({
-            path: 'cart.productId',
-            model:productModel
-        })
+        const user = await userModel.findOne({email:req.user.email});
         if(!user){
             return res.status(404).json({message:"User not found"});
         }
         return res.status(200).json({cart:user.cart});
     }
     catch (error){
-        console.log(error);
+        console.error(error);
+        return res.status(500).json({ message: "Internal Server Error" });
     }
 })
 

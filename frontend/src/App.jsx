@@ -25,7 +25,7 @@ function App() {
       <Route path='/' element={<Home />} />
       <Route path='/cart' element={<Cart />} />
       <Route path='/my-products' element={<MyProducts />}></Route>
-      <Route path="/productform" element={
+      <Route path="/create-product" element={
            <PrivateRouter>
            <Productform />
            </PrivateRouter>} />

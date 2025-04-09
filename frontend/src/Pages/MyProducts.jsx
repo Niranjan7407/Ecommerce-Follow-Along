@@ -10,12 +10,14 @@ export default function MyProducts() {
     const email = ""
 
     useEffect(() => {
+      document.getElementsByTagName('body')[0].style.backgroundImage="";
+      document.getElementsByTagName('body')[0].style.backgroundColor="#F0FFFF";
         console.log(localStorage.getItem("token"))
         if (localStorage.getItem("token")){axios.get(`http://localhost:3000/product/get-my-products`,{headers:{"Authorization":localStorage.getItem("token")}})
             .then((res) => {
                 if (res.status !== 200) {
                     throw new Error(`HTTP error! status: ${res.status}`);
-                }
+                } 
                 return res.data;
             })
             .then((data) => {
