@@ -24,6 +24,20 @@ function Profile(){
         navigate("/add-address");
     }
 
+    if (!localStorage.getItem("token")) {
+        return (
+          <div className="text-center mt-10">
+            <button
+              className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+              onClick={() => window.location.replace("/login")}
+            >
+              Login
+            </button>
+          </div>
+        );
+      }
+    
+
     
     
     return( user.avatar  ?
