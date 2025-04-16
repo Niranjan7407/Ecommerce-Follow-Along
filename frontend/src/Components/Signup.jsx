@@ -36,7 +36,7 @@ export default function Example() {
         formData.append('password', password);
         formData.append('avatar', avatar);
 
-        axios.post('http://localhost:3000/auth/create-user', formData,{headers:{"Content-Type":"multipart/form-data"}}).then((res)=>{
+        axios.post('https://ecommerce-follow-along-4ev4.onrender.com/auth/create-user', formData,{headers:{"Content-Type":"multipart/form-data"}}).then((res)=>{
             console.log(res);
             alert('User created successfully');
             navigate('/login');

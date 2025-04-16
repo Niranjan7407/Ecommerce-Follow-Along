@@ -20,7 +20,7 @@ const handleIncrement=()=>{
         const fetchProduct = async () => {
             try {
                 const response = await axios.get(
-                    `http://localhost:3000/product/${id}`
+                    `https://ecommerce-follow-along-4ev4.onrender.com/product/${id}`
                 );
                 console.log("Fetched product:", response.data.product);
                 setproduct(response.data.product); // Ensure correct state setting

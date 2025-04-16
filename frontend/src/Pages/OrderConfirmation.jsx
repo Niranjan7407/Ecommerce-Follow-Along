@@ -10,13 +10,6 @@ const OrderConfirmation=()=>{
     const [cart,setCart]=useState([]);
     const [total,setTotal]=useState(0);
 
-    // useEffect(()=>{
-    //     axios.get("http://localhost:3000/get-cart")
-    //     .then(response=>{
-    //         console.log(response.data);
-    //         setCart(response.data.cart);
-    //     })
-    // },[])
 
     useEffect(()=>{
         document.body.style.backgroundColor='white'
@@ -24,7 +17,7 @@ const OrderConfirmation=()=>{
     },[])
 
     useEffect(()=>{
-        axios.get('http://localhost:3000/product/getcart',{headers:{Authorization:localStorage.getItem('token')}}).then((res)=>{
+        axios.get('https://ecommerce-follow-along-4ev4.onrender.com/product/getcart',{headers:{Authorization:localStorage.getItem('token')}}).then((res)=>{
             setCart(res.data.cart)
         }).catch((err)=>{
             console.log(err)
@@ -76,7 +69,7 @@ const OrderConfirmation=()=>{
                                   onApprove={async(data,actions)=>{
                                     const order1= actions.order.capture()
                                     try{
-                                    const response=await axios.post('http://localhost:3000/order/verify-payment',{orderId:order1.id})
+                                    const response=await axios.post('https://ecommerce-follow-along-4ev4.onrender.com/order/verify-payment',{orderId:order1.id})
 
                                    if(response.data.success){
                                     onSuccess()

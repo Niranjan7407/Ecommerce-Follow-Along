@@ -32,7 +32,7 @@ export default function CartProduct({ productId,productImages, productName, quan
             return () => clearInterval(interval); // Cleanup when unmounting
         }, [currentIndex]);
     const updateQuantityVal = (quantity) => {
-        axios.patch('http://localhost:3000/product/cart', {
+        axios.patch('https://ecommerce-follow-along-4ev4.onrender.com/product/cart', {
             id: productId,
             quantity:quantity,
         },{headers:{"Authorization":localStorage.getItem("token")}})

@@ -19,7 +19,7 @@ export default function Homepage() {
 
     useEffect(()=>{
         const fetchProducts=async ()=>{
-            axios.get("http://localhost:3000/product/get-products")
+            axios.get("https://ecommerce-follow-along-4ev4.onrender.com/product/get-products")
         .then((res)=>{
             if (res.status!==200){
                 throw new Error(`HTTP Error! status:${res.status}`)

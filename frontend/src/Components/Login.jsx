@@ -25,7 +25,7 @@ export default function Example() {
     const password = e.target.password.value;
   
     console.log("Email:", email, "Password:", password);
-    axios.post('http://localhost:3000/auth/login', {
+    axios.post('https://ecommerce-follow-along-4ev4.onrender.com/auth/login', {
       email: email,
       password: password
     })

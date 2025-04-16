@@ -16,7 +16,7 @@ const AddressForm = () => {
 
         try {
             const response = await axios.post(
-                "http://localhost:3000/auth/add-address",
+                "https://ecommerce-follow-along-4ev4.onrender.com/auth/add-address",
                 address,
                 { headers: { "Content-Type": "application/json" , "Authorization":localStorage.getItem("token") } }
             );

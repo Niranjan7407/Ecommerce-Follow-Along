@@ -10,7 +10,7 @@ const Cart = () => {
     useEffect(() => {
         document.getElementsByTagName('body')[0].style.backgroundImage="";
         document.getElementsByTagName('body')[0].style.backgroundColor="#F0FFFF";
-        axios.get(`http://localhost:3000/product/getcart`,{headers:{"Authorization":localStorage.getItem("token")}})
+        axios.get(`https://ecommerce-follow-along-4ev4.onrender.com/product/getcart`,{headers:{"Authorization":localStorage.getItem("token")}})
             .then((res) => {
                 if (res.status!==200) {
                     console.log("error in cart page");

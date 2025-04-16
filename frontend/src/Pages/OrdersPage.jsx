@@ -13,7 +13,7 @@ const OrdersPage = () => {
              try {
                  setLoading(true);
                  setError('');
-                 const response = await axios.get('http://localhost:3000/order/myorder');
+                 const response = await axios.get('https://ecommerce-follow-along-4ev4.onrender.com/order/myorder');
                  setOrders(response.data.orders);
              } catch (err) {
                  setError(err.response?.data?.message || 'Error fetching orders');
@@ -24,7 +24,7 @@ const OrdersPage = () => {
          const cancelOrder = async (orderId) => {
             console.log("aa")
             try {   
-                const response = await axios.patch(`http://localhost:3000/orders/cancel-order/${orderId}`);   
+                const response = await axios.patch(`https://ecommerce-follow-along-4ev4.onrender.com/orders/cancel-order/${orderId}`);   
                 // Update the order in local state: either remove or update its status.
                 setOrders((prevOrders) =>
                     prevOrders.map((order) =>

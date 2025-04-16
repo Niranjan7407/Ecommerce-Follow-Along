@@ -28,7 +28,7 @@ export const Productform = () => {
         if (isEdit) {
            
             axios
-                .get(`http://localhost:3000/product/get-product/${id}`)
+                .get(`https://ecommerce-follow-along-4ev4.onrender.com/product/get-product/${id}`)
                 .then((response) => {
                     const p = response.data.product;
                     setName(p.name);
@@ -40,7 +40,7 @@ export const Productform = () => {
                     setEmail(p.email);
                     if (p.images && p.images.length > 0) {
                         setPreview(
-                            p.images.map((imgPath) => `http://localhost:3000/${imgPath}`)
+                            p.images.map((imgPath) => `https://ecommerce-follow-along-4ev4.onrender.com/${imgPath}`)
                         );
                     }
                 })
@@ -81,7 +81,7 @@ export const Productform = () => {
         if (isEdit) {
             console.log(isEdit)
           const response = axios.put(
-              `http://localhost:3000/product/edit-product/${id}`,
+              `https://ecommerce-follow-along-4ev4.onrender.com/product/edit-product/${id}`,
               formData,
               {
                   headers: { "Content-Type": "multipart/form-data" },
@@ -94,7 +94,7 @@ export const Productform = () => {
       }
        else {
         console.log(isEdit)
-          const res = await axios.post('http://localhost:3000/product/post-product', formData,{headers:{'Content-Type':'multipart/form-data'}});
+          const res = await axios.post('https://ecommerce-follow-along-4ev4.onrender.com/product/post-product', formData,{headers:{'Content-Type':'multipart/form-data'}});
 
         if (res.status === 200) {
             setName('');

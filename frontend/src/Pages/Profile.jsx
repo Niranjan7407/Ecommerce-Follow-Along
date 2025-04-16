@@ -10,7 +10,7 @@ function Profile(){
     useEffect(() => {
         document.getElementsByTagName('body')[0].style.backgroundColor="#F0FFFF";
         document.getElementsByTagName('body')[0].style.backgroundImage="";
-        axios.get('http://localhost:3000/auth/get-user',{headers:{"Authorization":localStorage.getItem("token")}}).then((response) => {
+        axios.get('https://ecommerce-follow-along-4ev4.onrender.com/auth/get-user',{headers:{"Authorization":localStorage.getItem("token")}}).then((response) => {
             console.log(response.data)
             setUser(response.data.user)
         })
@@ -33,7 +33,7 @@ function Profile(){
             </div>
             <div className="flex flex-row  justify-start" style={{gap: "2rem"}}>
                 <div className="profile-img">
-                    <img style={{width:'80px',height:'80px'}} className="rounded-full" src={`http://localhost:3000${user.avatar.url.replace(/\\/g, "/")}`} alt="" />
+                    <img style={{width:'80px',height:'80px'}} className="rounded-full" src={`https://ecommerce-follow-along-4ev4.onrender.com${user.avatar.url.replace(/\\/g, "/")}`} alt="" />
                 </div>
                 <div className="profile-info">
                     <h2>{user.name}</h2>
