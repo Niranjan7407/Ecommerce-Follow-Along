@@ -74,7 +74,7 @@ export default function CartProduct({ productId,productImages, productName, quan
             <div className="w-full flex flex-col justify-start items-start md:flex-row md:justify-between md:items-center px-4">
                 <div className="h-24 w-24 bg-gray-200 rounded-lg">
                 <img 
-    src={`https://ecommerce-follow-along-4ev4.onrender.com${productImages[currentIndex].replace(/\\/g, "/")}`} 
+    src={`https://ecommerce-follow-along-4ev4.onrender.com/${productImages[currentIndex].replace(/\\/g, "/")}`} 
     alt={productId} 
     className="object-scale-down rounded-md"
 />
