@@ -12,9 +12,12 @@ export default function CartProduct({ productId,productImages, productName, quan
         updateQuantityVal(newquantityVal);
 	};
 	const handleDecrement = () => {
-        const newquantityVal = quantityVal > 1 ? quantityVal - 1 : 1;
+        const newquantityVal = quantityVal > 0 ? quantityVal - 1 : 1;
 		setQuantityVal(newquantityVal);
         updateQuantityVal(newquantityVal);
+        if (newquantityVal===0){
+            window.location.reload();
+        }
 	};
     useEffect(() => {
         console.log(productImages);
@@ -29,29 +32,6 @@ export default function CartProduct({ productId,productImages, productName, quan
             return () => clearInterval(interval); // Cleanup when unmounting
         }, [currentIndex]);
     const updateQuantityVal = (quantity) => {
-        // fetch('http://localhost:3000/', {
-        //     method: 'PUT',
-        //     headers: {
-        //         'Content-Type': 'application/json',
-        //     },
-        //     body: JSON.stringify({
-        //         email: '',
-        //         productId: _id,
-        //         quantity,
-        //     }),
-        // })
-        //     .then((res) => {
-        //         if (!res.ok) {
-        //             throw new Error(`HTTP error! status: ${res.status}`);
-        //         }
-        //         return res.json();
-        //     })
-        //     .then((data) => {
-        //         console.log('quantityVal updated:', data);
-        //     })
-        //     .catch((err) => {
-        //         console.error('Error updating quantityVal:', err);
-        //     });
         axios.patch('http://localhost:3000/product/cart', {
             id: productId,
             quantity:quantity,

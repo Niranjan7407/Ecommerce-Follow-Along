@@ -94,11 +94,11 @@ productRouter.patch("/cart",auth, async(req, res) => {
     const {id, quantity} = req.body;
 
     try {
-        if ( !id ||  !quantity) {
+        if ( id==null ||  quantity==null) {
             return res.status(400).json({ message: "Missing required fields" });
         }
         
-        const findEmail = req.user
+        const findEmail = req.user;
         if (!findEmail) {
             return res.status(404).json({ message: "User does not exist" });
         }
@@ -106,7 +106,7 @@ productRouter.patch("/cart",auth, async(req, res) => {
             return res.status(400).json({ message: "Invalid product id" });
         }
 
-        if (quantity < 0 || !quantity) {
+        if (quantity < 0) {
             return res.status(400).json({ message: "Invalid quantity" });
         }
 
@@ -121,6 +121,11 @@ productRouter.patch("/cart",auth, async(req, res) => {
         }
         const cartIndex = findUser.cart.findIndex((item) => item.productId.toString() === id);
         if (cartIndex !== -1) { 
+            if (quantity===0){
+                findUser.cart.splice(cartIndex,1);
+                await findUser.save();
+                return res.status(200).json({message:"Cart Updated Successfully"})
+            }
             findUser.cart[cartIndex].quantity = quantity;
             findUser.cart[cartIndex].price = findProduct.price * quantity;
         } else {
